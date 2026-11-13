@@ -136,8 +136,9 @@ h2{font-size:calc(var(--u)*1.6);line-height:1.15}
 
 .countdown{
   position:absolute;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none;
-  color:var(--red);font-size:calc(var(--u)*4.8);font-family:"Bowlby One","Arial Black",sans-serif;
-  text-shadow:0 4px 0 #fff,0 8px 16px rgba(90,60,20,.18);
+  color:#fff;font-size:calc(var(--u)*7.5);font-family:"Bowlby One","Arial Black",sans-serif;
+  -webkit-text-stroke:5px #f5b521;paint-order:stroke fill;
+  text-shadow:0 5px 0 #d99512,0 0 24px rgba(245,181,33,.9),0 12px 22px rgba(90,45,5,.55);
 }
 .countdown.show{animation:countdownPop .72s cubic-bezier(.2,1.45,.4,1) both}
 @keyframes countdownPop{0%{opacity:0;scale:.5}20%{opacity:1;scale:1.08}100%{opacity:0;scale:1.25}}
@@ -275,7 +276,7 @@ body.landscape #rotate{display:grid}
           <p class="sub" id="card-sub">Fry as many fluffy luchis as you can</p>
           <ol>
             <li>Hold the burner and slide to move the kadhai.</li>
-            <li>Catch the luchis in the centre of the hot oil. Each one puffs up soft and fluffy.</li>
+            <li>Catch the luchis in the centre of the hot oil.</li>
             <li id="li-master"></li>
           </ol>
           <div class="beat"><button class="btn" id="btn-start">Start Now</button></div>
@@ -351,7 +352,7 @@ const BUY_URL   = 'https://blinkit.com/prn/x/prid/674714';              // Buy N
 
 const CFG = {
   DURATION  : 15,     // seconds per round
-  MASTER    : 20,     // catches needed for "Luchi Queen"
+  MASTER    : 16,     // catches needed for "Luchi Queen"
   FALL_T0   : 2.0,    // seconds for a luchi to fall to the kadhai at the start ...
   FALL_T1   : 1.2,    // ... and at the end of the round
   GAP0      : .66,    // seconds between luchis at the start ...
@@ -361,7 +362,7 @@ const CFG = {
   DOUBLE_AT : .4,     // from this point of the round, some luchis fall in pairs ...
   DOUBLE_P  : .35,    // ... with this chance, on opposite sides
   TILT      : 15,     // luchis fall at a random tilt between -15 and 15 degrees
-  PRACTICE_T: 4.4,    // the slow practice luchi
+  PRACTICE_T: 2.6,    // the practice luchi (a little slower than the real round)
   IDLE_CARD : 4.5,    // no touch in the practice for this long: show the text how-to-play
   SPRING    : 70,     // kadhai follow strength (lower = heavier)
   DAMP      : 10.5,   // kadhai damping (lower = more slide / overshoot)
@@ -773,7 +774,7 @@ function updateHUD(){
   uiCount.textContent = count;
   uiBar.style.width = Math.min(100, count / CFG.MASTER * 100) + '%';
   const m = count >= CFG.MASTER; bar.classList.toggle('master', m);
-  goalTxt.innerHTML = m ? '★ <span class="queen">Luchi Queen!</span>' : CFG.MASTER + ' = <span class="queen">Luchi Queen</span>';
+  goalTxt.innerHTML = m ? '★ <span class="queen red">Luchi Queen!</span>' : CFG.MASTER + ' = <span class="queen red">Luchi Queen</span>';
 }
 
 function spawn(slowT){
